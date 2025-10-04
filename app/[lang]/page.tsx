@@ -1,31 +1,35 @@
 'use client'
-import Link from 'next/link'
 
-export default function HomeEn() {
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
+
+export default function Home() {
+  const params = useParams()
+  const lang = params?.lang === 'fr' ? 'fr' : 'en'
+
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 relative">
 
-      {/* Bouton langue FR */}
+      {/* Bouton langue */}
       <div className="absolute top-4 right-4">
-        <Link href="/">
+        <Link href={lang === 'fr' ? '/en' : '/fr'}>
           <button className="flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition">
-            <span className="text-lg">🌍</span> FR
+            <span className="text-lg">🌍</span>
+            {lang === 'fr' ? 'EN' : 'FR'}
           </button>
         </Link>
       </div>
 
-      <h1 className="text-5xl font-bold mb-6 text-center">
-        Bandhu
-      </h1>
+      <h1 className="text-5xl font-bold mb-6 text-center">Bandhu</h1>
       <p className="text-xl text-zinc-400 mb-12 text-center">
-        Dialogue with machines
+        {lang === 'fr' ? 'Dialogue avec les machines' : 'Dialogue with machines'}
       </p>
 
       <Link
-        href="/login"
+        href={`/${lang}/chat`}
         className="bg-white text-black px-6 py-3 rounded-xl text-lg font-semibold hover:bg-zinc-200 transition"
       >
-        Try
+        {lang === 'fr' ? 'Essayer' : 'Try'}
       </Link>
     </main>
   )
